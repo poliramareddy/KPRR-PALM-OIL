@@ -5,16 +5,16 @@
 <style>
 :root{--bg:#f4f6f1;--c:#fff;--t:#1d2a1f;--m:#6b7a6d;--p:#2f6b3a;--a:#d98a12;--l:#dfe5da;--r:#b3261e}
 @media(prefers-color-scheme:dark){:root{--bg:#121a14;--c:#1b261e;--t:#e8efe9;--m:#9bab9e;--p:#57b068;--l:#2b3a2e}}
-*{box-sizing:border-box}body{margin:0;font:15px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--t);padding-bottom:64px}
+*{box-sizing:border-box}body{margin:0;font:15px/1.4 system-ui,sans-serif;background:var(--bg);color:var(--t);padding-bottom:70px}
 button,input,select{font:inherit;color:inherit}
 .btn{background:var(--p);color:#fff;border:0;border-radius:10px;padding:10px 14px;cursor:pointer;font-weight:600}
 .btn.o{background:none;color:var(--p);border:1px solid var(--p)}.btn.d{background:var(--r)}.btn.s{padding:5px 9px;font-size:13px}
 input,select{width:100%;padding:10px;border:1px solid var(--l);border-radius:10px;background:var(--c)}
 label{display:block;font-size:13px;color:var(--m);margin:10px 0 3px}
-header{position:sticky;top:0;z-index:5;background:var(--p);color:#fff;display:flex;gap:10px;align-items:center;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top))}
+header{background:var(--p);color:#fff;display:flex;gap:10px;align-items:center;padding:10px 14px;padding-top:max(10px,env(safe-area-inset-top))}
 header b{flex:1;font-size:17px}header select{width:auto;padding:6px;background:#fff;color:#111}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:var(--c);border-top:1px solid var(--l);padding-bottom:env(safe-area-inset-bottom);z-index:5}
-nav a{flex:1;text-align:center;padding:10px 2px;color:var(--m);font-size:12px;cursor:pointer}nav a b{display:block;font-size:18px}nav a.on{color:var(--p);font-weight:700}
+.top{position:sticky;top:0;z-index:5}nav{display:flex;background:var(--c);border-bottom:1px solid var(--l)}
+nav a{flex:1;text-align:center;padding:7px 2px;color:var(--m);font-size:12px;cursor:pointer}nav a b{display:block;font-size:18px}nav a.on{color:var(--p);font-weight:700}
 main{padding:14px;max-width:1150px;margin:auto}
 .card{background:var(--c);border:1px solid var(--l);border-radius:14px;padding:14px;margin-bottom:14px}
 .bar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}.bar h2{margin:0;flex:1;font-size:19px}.bar select{width:auto}
@@ -29,7 +29,7 @@ tr.tot td{font-weight:700;background:var(--bg)}
 .ov{position:fixed;inset:0;background:#0008;z-index:9;display:flex;align-items:flex-end;justify-content:center}
 .md{background:var(--c);width:100%;max-width:520px;max-height:92vh;overflow:auto;border-radius:18px 18px 0 0;padding:16px}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:0 10px}.ph{display:none}
-@media(min-width:760px){body{padding:0 0 0 190px}nav{top:0;right:auto;width:190px;flex-direction:column;border-top:0;border-right:1px solid var(--l);padding-top:64px}
+@media(min-width:760px){body{padding:0 0 0 190px}nav{position:fixed;top:0;bottom:0;left:0;width:190px;flex-direction:column;border-bottom:0;border-right:1px solid var(--l);padding-top:64px}
 nav a{text-align:left;padding:14px 20px;font-size:15px}nav a b{display:inline;margin-right:8px}.ov{align-items:center}.md{border-radius:18px}header{margin-left:-190px;padding-left:204px}}
 @media print{header,nav,.noprint,.bar{display:none!important}body{padding:0;background:#fff;color:#000}.ph{display:block}.card{border:0;padding:0}.sc{overflow:visible}td,th{padding:4px 6px;font-size:11px}}
 </style></head><body>
@@ -86,8 +86,8 @@ function repPage(){const tabs=`<div class="bar noprint"><button class="btn ${S.r
  <div class="card"><h3>Total report</h3><div class="k">${c.tot.map(s=>`<div><small>${s[0]}</small><b>${E(s[1])}</b></div>`).join('')}</div></div>
  <div class="card">${table(c.table.head,c.table.body)}</div>`}
 function R(){if(!S.u)return;const nav=[['de','🧺','DE'],['exp','💸','EXP'],['rep','📊','Reports'],...(S.u.role==='admin'?[['adm','👥','Users']]:[])];
- $('#app').innerHTML=`<header><b>🌴 Palm Oil</b><select onchange="S.fy=this.value;R()">${opts(FYS,S.fy)}</select><button class="btn o s" style="color:#fff;border-color:#fff" onclick="A.acct()">${E(S.u.name)} ▾</button></header>
- <nav>${nav.map(n=>`<a class="${S.page===n[0]?'on':''}" onclick="S.page='${n[0]}';A.go()"><b>${n[1]}</b>${n[2]}</a>`).join('')}</nav><main>${page()}</main>`}
+ $('#app').innerHTML=`<div class="top"><header><b>🌴 Palm Oil</b><select onchange="S.fy=this.value;R()">${opts(FYS,S.fy)}</select><button class="btn o s" style="color:#fff;border-color:#fff" onclick="A.acct()">${E(S.u.name)} ▾</button></header>
+ <nav>${nav.map(n=>`<a class="${S.page===n[0]?'on':''}" onclick="S.page='${n[0]}';A.go()"><b>${n[1]}</b>${n[2]}</a>`).join('')}</nav></div><main>${page()}</main>`}
 const modal=h=>{$('#modal').innerHTML=h?`<div class="ov" onclick="if(event.target===this)A.x()"><div class="md">${h}</div></div>`:''};
 const A={x:()=>modal(''),
  async login(e){e.preventDefault();const f=e.target;try{const j=await api('login',{username:f.u.value,password:f.p.value});S.tok=localStorage.pt=j.token;await A.boot()}catch(x){$('#le').textContent=x.message}return false},
